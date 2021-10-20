@@ -1,29 +1,32 @@
 const EntitySchema = require("typeorm").EntitySchema;
-const CartItem = require("../models/CartItem").CartItem;
+const Image = require("../models/Image").Image;
 
 module.exports = new EntitySchema({
-  name: "CartItem",
-  target: CartItem,
+  name: "Image",
+  target: Image,
   columns: {
     id: {
       primary: true,
       type: "bigint",
       generated: "true",
     },
-    quantity: {
-      type: "smallint",
+    src: {
+      type: "varchar",
+    },
+    srcHover: {
+      type: "varchar",
+    },
+    color: {
+      type: "varchar",
+    },
+    imgAlt: {
+      type: "varchar",
     },
   },
   relations: {
     product: {
       type: "many-to-one",
       target: "Product",
-      joinColumn: true,
-      onDelete: "CASCADE",
-    },
-    cart: {
-      type: "many-to-one",
-      target: "Cart",
       joinColumn: true,
       onDelete: "CASCADE",
     },
