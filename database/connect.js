@@ -11,7 +11,10 @@ async function connect() {
       database: "dressup",
       synchronize: "true",
       logging: false,
-      entities: [require("../schemas/UserSchema")],
+      entities: [
+        require("../schemas/UserSchema"),
+        require("../schemas/CartSchema"),
+      ],
     });
   } catch (err) {
     console.log(err);
