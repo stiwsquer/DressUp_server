@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const {
   getAllUsers,
   getUserByEmail,
@@ -40,8 +41,92 @@ app.post("/user", authenticateToken, async (req, res) => {
         .send(`User with email: ${req.body.email} allready exists`);
     }
 
-    const response = await saveUser(req.body.email, req.body.password);
+    const response = await saveUser(
+      req.body.email,
+      req.body.password,
+      req.body.firstName,
+      req.body.lastName,
+      req.body.phoneNumber,
+      req.body.companyName,
+      req.body.birthMonth,
+      req.body.adressLine1,
+      req.body.adressLine2,
+      req.body.city,
+      req.body.state,
+      req.body.zip,
+      req.body.country
+    );
     res.send(response);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.put("/user", authenticateToken, async (req, res) => {
+  try {
+    let response;
+    res.setHeader("Content-Type", "application/json");
+    if ((await getUserByEmail(req.body.email)) ? true : false) {
+      response = await updateUser(
+        req.body.email,
+        req.body.password,
+        req.body.firstName,
+        req.body.lastName,
+        req.body.phoneNumber,
+        req.body.companyName,
+        req.body.birthMonth,
+        req.body.adressLine1,
+        req.body.adressLine2,
+        req.body.city,
+        req.body.state,
+        req.body.zip,
+        req.body.country
+      );
+    } else {
+      response = await saveUser(
+        req.body.email,
+        req.body.password,
+        req.body.firstName,
+        req.body.lastName,
+        req.body.phoneNumber,
+        req.body.companyName,
+        req.body.birthMonth,
+        req.body.adressLine1,
+        req.body.adressLine2,
+        req.body.city,
+        req.body.state,
+        req.body.zip,
+        req.body.country
+      );
+    }
+    res.send(response);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.patch("/user", authenticateToken, async (req, res) => {
+  try {
+    res.setHeader("Content-Type", "application/json");
+    if ((await getUserByEmail(req.body.email)) ? true : false) {
+      const response = await updateUser(
+        req.body.email,
+        req.body.password,
+        req.body.firstName,
+        req.body.lastName,
+        req.body.phoneNumber,
+        req.body.companyName,
+        req.body.birthMonth,
+        req.body.adressLine1,
+        req.body.adressLine2,
+        req.body.city,
+        req.body.state,
+        req.body.zip,
+        req.body.country
+      );
+      return response;
+    }
+    return res.sendStatus(404);
   } catch (err) {
     console.log(err);
   }
@@ -98,7 +183,7 @@ app.post("/login", async (req, res) => {
       return res.status(400).send("Cannot find user");
     }
 
-    if (!verifyPassword(req.body.password, userFromDataBase)) {
+    if (!(await bcrypt.compare(req.body.password, userFromDataBase.password))) {
       res.send("Not Allowed");
     }
 
@@ -129,7 +214,21 @@ app.post("/register", async (req, res) => {
         .send(`User with email: ${req.body.email} allready exists`);
     }
 
-    await saveUser(req.body.email, req.body.password);
+    await saveUser(
+      req.body.email,
+      req.body.password,
+      req.body.firstName,
+      req.body.lastName,
+      req.body.phoneNumber,
+      req.body.companyName,
+      req.body.birthMonth,
+      req.body.adressLine1,
+      req.body.adressLine2,
+      req.body.city,
+      req.body.state,
+      req.body.zip,
+      req.body.country
+    );
     res.status(200).json({ message: "User successfully created" });
   } catch (err) {
     console.log(err);
