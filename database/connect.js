@@ -14,6 +14,12 @@ async function connect() {
       entities: [
         require("../schemas/UserSchema"),
         require("../schemas/CartSchema"),
+        require("../schemas/ImageSchema"),
+        require("../schemas/CartItemSchema"),
+        require("../schemas/CategorySchema"),
+        require("../schemas/OrderItemSchema"),
+        require("../schemas/OrderSchema"),
+        require("../schemas/ProductSchema"),
       ],
     });
   } catch (err) {

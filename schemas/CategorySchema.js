@@ -15,14 +15,7 @@ module.exports = new EntitySchema({
     },
   },
   relations: {
-    parentCategory: {
-      type: "one-to-many",
-      target: "Category",
-      joinColumn: true,
-      onDelete: "CASCADE",
-      nullable: true,
-    },
-    products: {
+    _: {
       type: "many-to-many",
       target: "Product",
       joinTable: true,
