@@ -19,6 +19,7 @@ module.exports = new EntitySchema({
     },
     admin: {
       type: "smallint",
+      nullable: true,
     },
     firstName: {
       type: "varchar",
