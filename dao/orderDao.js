@@ -18,6 +18,11 @@ function getOrdersByStatusDAO(status) {
   const orderRepository = connection.getRepository(Order);
   return orderRepository.findOne({ status: status });
 }
+function getOrdersByPlainObjectDAO(plainObject) {
+  const connection = getConnection();
+  const orderRepository = connection.getRepository(Order);
+  return orderRepository.find(plainObject);
+}
 
 function getOrdersByUserIdDAO(userId) {
   const connection = getConnection();
@@ -75,4 +80,5 @@ module.exports = {
   removeOrderDAO,
   removeOrderByIdDAO,
   removeOrderByUserIdDAO,
+  getOrdersByPlainObjectDAO,
 };

@@ -19,19 +19,19 @@ function getOrderItemsByProductIdDAO(productId) {
   return orderItemRepository.find({ productId: productId });
 }
 
-function getOrderItemsByCartIdDAO(cartId) {
+function getOrderItemsByOrderIdDAO(orderId) {
   const connection = getConnection();
   const orderItemRepository = connection.getRepository(OrderItem);
-  return orderItemRepository.find({ cartId: cartId });
+  return orderItemRepository.find({ orderId: orderId });
 }
 
-function getCartsItemsByQuantityDAO(quantity) {
+function getOrdersItemsByQuantityDAO(quantity) {
   const connection = getConnection();
   const orderItemRepository = connection.getRepository(OrderItem);
   return orderItemRepository.find({ quantity: quantity });
 }
 
-function getCartsItemsByPlainObjectDAO(plainObject) {
+function getOrdersItemsByPlainObjectDAO(plainObject) {
   const connection = getConnection();
   const orderItemRepository = connection.getRepository(OrderItem);
   return orderItemRepository.find(plainObject);
@@ -83,9 +83,9 @@ module.exports = {
   getAllOrdersItemsDAO,
   getOrderItemByIdDAO,
   getOrderItemsByProductIdDAO,
-  getOrderItemsByCartIdDAO,
-  getCartsItemsByQuantityDAO,
-  getCartsItemsByPlainObjectDAO,
+  getOrdersItemsByQuantityDAO,
+  getOrdersItemsByPlainObjectDAO,
+  getOrderItemsByOrderIdDAO,
   saveOrderItemDAO,
   updateOrderItemDAO,
   removeOrderItemDAO,

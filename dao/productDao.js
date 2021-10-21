@@ -18,6 +18,11 @@ function getProductByTitleDAO(title) {
   const productRepository = connection.getRepository(Product);
   return productRepository.findOne({ title: title });
 }
+function getProductsByPlainObjectDAO(plainObject) {
+  const connection = getConnection();
+  const productRepository = connection.getRepository(Product);
+  return productRepository.find(plainObject);
+}
 
 function getProductsByPriceDAO(price) {
   const connection = getConnection();
@@ -82,4 +87,5 @@ module.exports = {
   removeProductByIdDAO,
   removeProductByTitleDAO,
   updateProductDAO,
+  getProductsByPlainObjectDAO,
 };

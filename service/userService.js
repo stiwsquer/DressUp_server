@@ -7,6 +7,7 @@ const {
   removeUserDAO,
   removeUserByIdDAO,
   removeUserByEmailDAO,
+  getUserByPlainObjectDAO,
 } = require("../dao/userDao");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User").User;
@@ -33,6 +34,14 @@ async function getUserByEmail(email) {
   try {
     const userFromDataBase = await getUserByEmailDAO(email);
     return userFromDataBase;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function getUserByPlainObject(plainObject) {
+  try {
+    return await getUserByPlainObjectDAO(plainObject);
   } catch (err) {
     console.log(err);
   }
@@ -168,4 +177,5 @@ module.exports = {
   removeUserByEmail,
   generateAccessToken,
   generateRefreshToken,
+  getUserByPlainObject,
 };

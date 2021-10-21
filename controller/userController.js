@@ -11,6 +11,7 @@ const {
   generateRefreshToken,
   generateAccessToken,
   verifyPassword,
+  getUserByPlainObject,
 } = require("../service/userService");
 const jwt = require("jsonwebtoken");
 const { app, authenticateToken } = require("../loaders/loaders");

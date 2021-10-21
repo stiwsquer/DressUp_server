@@ -24,6 +24,11 @@ function saveCategoryDAO(category) {
   const categoryRepository = connection.getRepository(Category);
   return categoryRepository.save(category);
 }
+function getCategoriesByPlainObjectDAO(plainObject) {
+  const connection = getConnection();
+  const categoryRepository = connection.getRepository(Category);
+  return categoryRepository.find(plainObject);
+}
 
 function updateCategoryDAO(category) {
   const connection = getConnection();
@@ -68,4 +73,5 @@ module.exports = {
   removeCategoryDAO,
   removeCategoryByIdDAO,
   removeCategoryByTitleDAO,
+  getCategoriesByPlainObjectDAO,
 };

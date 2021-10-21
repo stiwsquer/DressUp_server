@@ -12,6 +12,11 @@ function getImageByIdDAO(id) {
   const imageRepository = connection.getRepository(Image);
   return imageRepository.findOne(id);
 }
+function getImagesByPlainObjectDAO(plainObject) {
+  const connection = getConnection();
+  const imageRepository = connection.getRepository(Image);
+  return imageRepository.find(plainObject);
+}
 
 function getImageByProductIdDAO(productId) {
   const connection = getConnection();
@@ -70,4 +75,5 @@ module.exports = {
   removeImageDAO,
   removeImageByIdDAO,
   removeCardByProductIdDAO,
+  getImagesByPlainObjectDAO,
 };
