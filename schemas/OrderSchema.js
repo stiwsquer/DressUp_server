@@ -13,6 +13,9 @@ module.exports = new EntitySchema({
     status: {
       type: "varchar",
     },
+    createdAt: {
+      type: "timestamp with local time zone",
+    },
   },
   relations: {
     user: {
