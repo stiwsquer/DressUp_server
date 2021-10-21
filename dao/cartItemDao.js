@@ -1,4 +1,4 @@
-const CartItem = require("../models/CartItem").Cart;
+const CartItem = require("../models/CartItem").CartItem;
 const getConnection = require("typeorm").getConnection;
 
 function getAllCartsItemsDAO() {
