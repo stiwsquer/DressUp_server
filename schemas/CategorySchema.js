@@ -15,10 +15,12 @@ module.exports = new EntitySchema({
     },
   },
   relations: {
-    _: {
+    categories: {
       type: "many-to-many",
       target: "Product",
-      joinTable: true,
+      joinTable: {
+        name: "category_product",
+      },
     },
   },
 });
