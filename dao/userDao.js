@@ -1,37 +1,37 @@
 const User = require("../models/User").User;
 const getConnection = require("typeorm").getConnection;
 
-function getAllUsersDAL() {
+function getAllUsersDAO() {
   const connection = getConnection();
   const userRepository = connection.getRepository(User);
   return userRepository.find();
 }
 
-function getUserByIdDAL(id) {
+function getUserByIdDAO(id) {
   const connection = getConnection();
   const userRepository = connection.getRepository(User);
   return userRepository.findOne(id);
 }
 
-function getUserByEmailDAL(email) {
+function getUserByEmailDAO(email) {
   const connection = getConnection();
   const userRepository = connection.getRepository(User);
   return userRepository.findOne({ email: email });
 }
 
-function saveUserDAL(user) {
+function saveUserDAO(user) {
   const connection = getConnection();
   const userRepository = connection.getRepository(User);
   return userRepository.save(user);
 }
 
-function removeUserDAL(userObj) {
+function removeUserDAO(userObj) {
   const connection = getConnection();
   const userRepository = connection.getRepository(User);
   return userRepository.remove(userObj);
 }
 
-async function removeUserByIdDAL(id) {
+async function removeUserByIdDAO(id) {
   try {
     const connection = getConnection();
     const userRepository = connection.getRepository(User);
@@ -42,7 +42,7 @@ async function removeUserByIdDAL(id) {
   }
 }
 
-async function removeUserByEmailDAL(email) {
+async function removeUserByEmailDAO(email) {
   try {
     const connection = getConnection();
     const userRepository = connection.getRepository(User);
@@ -54,11 +54,11 @@ async function removeUserByEmailDAL(email) {
 }
 
 module.exports = {
-  getAllUsersDAL,
-  getUserByEmailDAL,
-  getUserByIdDAL,
-  saveUserDAL,
-  removeUserDAL,
-  removeUserByIdDAL,
-  removeUserByEmailDAL,
+  getAllUsersDAO,
+  getUserByEmailDAO,
+  getUserByIdDAO,
+  saveUserDAO,
+  removeUserDAO,
+  removeUserByIdDAO,
+  removeUserByEmailDAO,
 };

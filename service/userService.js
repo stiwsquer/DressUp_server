@@ -1,19 +1,19 @@
 const bcrypt = require("bcrypt");
 const {
-  getAllUsersDAL,
-  getUserByEmailDAL,
-  getUserByIdDAL,
-  saveUserDAL,
-  removeUserDAL,
-  removeUserByIdDAL,
-  removeUserByEmailDAL,
+  getAllUsersDAO,
+  getUserByEmailDAO,
+  getUserByIdDAO,
+  saveUserDAO,
+  removeUserDAO,
+  removeUserByIdDAO,
+  removeUserByEmailDAO,
 } = require("../dao/userDao");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User").User;
 
 async function getAllUsers() {
   try {
-    const allUsers = await getAllUsersDAL();
+    const allUsers = await getAllUsersDAO();
     return allUsers;
   } catch (err) {
     console.log(err);
@@ -22,7 +22,7 @@ async function getAllUsers() {
 
 async function getUserById(id) {
   try {
-    const user = await getUserByIdDAL(id);
+    const user = await getUserByIdDAO(id);
     return user;
   } catch (err) {
     console.log(err);
@@ -31,7 +31,7 @@ async function getUserById(id) {
 
 async function getUserByEmail(email) {
   try {
-    const userFromDataBase = await getUserByEmailDAL(email);
+    const userFromDataBase = await getUserByEmailDAO(email);
     return userFromDataBase;
   } catch (err) {
     console.log(err);
@@ -69,7 +69,7 @@ async function saveUser(
     newUser.state = state;
     newUser.zip = zip;
     newUser.country = country;
-    return await saveUserDAL(newUser);
+    return await saveUserDAO(newUser);
   } catch (err) {
     console.log(err);
   }
@@ -93,8 +93,8 @@ async function updateUser(
 ) {
   try {
     const userToUpdate = id
-      ? await getUserByIdDAL(id)
-      : await getUserByEmailDAL(email);
+      ? await getUserByIdDAO(id)
+      : await getUserByEmailDAO(email);
     userToUpdate.password = password
       ? await bcrypt.hash(password, 10)
       : userToUpdate.password;
@@ -117,7 +117,7 @@ async function updateUser(
     userToUpdate.state = state ? state : userToUpdate.state;
     userToUpdate.zip = zip ? zip : userToUpdate.zip;
     userToUpdate.country = country ? country : userToUpdate.country;
-    const response = await saveUserDAL(userToUpdate);
+    const response = await saveUserDAO(userToUpdate);
     return response;
   } catch (err) {
     console.log(err);
@@ -126,7 +126,7 @@ async function updateUser(
 
 async function removeUser(userObj) {
   try {
-    const response = await removeUserDAL(userObj);
+    const response = await removeUserDAO(userObj);
     return response;
   } catch (err) {
     console.log(err);
@@ -135,7 +135,7 @@ async function removeUser(userObj) {
 
 async function removeUserById(id) {
   try {
-    return await removeUserByIdDAL(id);
+    return await removeUserByIdDAO(id);
   } catch (err) {
     console.log(err);
   }
@@ -143,7 +143,7 @@ async function removeUserById(id) {
 
 async function removeUserByEmail(email) {
   try {
-    return await removeUserByEmailDAL(email);
+    return await removeUserByEmailDAO(email);
   } catch (err) {
     console.log(err);
   }
