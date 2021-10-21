@@ -9,6 +9,7 @@ const {
   removeProductByIdDAO,
   removeProductByTitleDAO,
   updateProductDAO,
+  getProductsByPlainObjectDAO,
 } = require("../dao/productDao");
 
 const Product = require("../models/Product").Product;
@@ -54,6 +55,14 @@ async function getProductsByQuantity(quantity) {
   }
 }
 
+async function getProductsByPlainObject(plainObject) {
+  try {
+    return await getProductsByPlainObjectDAO(plainObject);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 async function saveProduct(title, text, price, quantity) {
   try {
     const newProduct = new Product();
@@ -67,7 +76,7 @@ async function saveProduct(title, text, price, quantity) {
   }
 }
 
-async function updateProduct(title, text, price, quantity) {
+async function updateProduct(title, text, price, quantity, id) {
   try {
     const productToUpdate = id
       ? await getProductByIdDAO(id)
@@ -118,4 +127,5 @@ module.exports = {
   getProductsByPrice,
   getProductsByQuantity,
   removeProductByTitle,
+  getProductsByPlainObject,
 };

@@ -19,6 +19,12 @@ function getCartByStatusDAO(status) {
   return cartRepository.findOne({ status: status });
 }
 
+function getCartsByPlainObjectDAO(plainObject) {
+  const connection = getConnection();
+  const cartRepository = connection.getRepository(Cart);
+  return cartRepository.find(plainObject);
+}
+
 function getCartByUserIdDAO(userId) {
   const connection = getConnection();
   const cartRepository = connection.getRepository(Cart);
@@ -75,4 +81,5 @@ module.exports = {
   removeCartDAO,
   removeCartByIdDAO,
   removeCardByUserIdDAO,
+  getCartsByPlainObjectDAO,
 };

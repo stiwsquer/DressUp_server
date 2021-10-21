@@ -19,6 +19,12 @@ function getUserByEmailDAO(email) {
   return userRepository.findOne({ email: email });
 }
 
+function getUserByPlainObjectDAO(plainObject) {
+  const connection = getConnection();
+  const userRepository = connection.getRepository(User);
+  return userRepository.find(plainObject);
+}
+
 function saveUserDAO(user) {
   const connection = getConnection();
   const userRepository = connection.getRepository(User);
@@ -61,4 +67,5 @@ module.exports = {
   removeUserDAO,
   removeUserByIdDAO,
   removeUserByEmailDAO,
+  getUserByPlainObjectDAO,
 };
