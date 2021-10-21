@@ -53,14 +53,16 @@ async function removeImageByIdDAO(id) {
   }
 }
 
-async function removeCardByProductIdDAO(productId) {
+async function removeImagesByProductIdDAO(productId) {
   try {
     const connection = getConnection();
     const imageRepository = connection.getRepository(Image);
-    const imageToRemove = await imageRepository.findOne({
+    const imagesToRemove = await imageRepository.find({
       productId: productId,
     });
-    return imageRepository.remove(imageToRemove);
+    imagesToRemove.forEach((image) => {
+      imageRepository.remove(image);
+    });
   } catch (err) {
     console.log(err);
   }
@@ -74,6 +76,6 @@ module.exports = {
   updateImageDAO,
   removeImageDAO,
   removeImageByIdDAO,
-  removeCardByProductIdDAO,
+  removeImagesByProductIdDAO,
   getImagesByPlainObjectDAO,
 };
