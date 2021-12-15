@@ -1,68 +1,68 @@
-const EntitySchema = require("typeorm").EntitySchema;
-const User = require("../models/User").User;
+const { EntitySchema } = require('typeorm');
+const { User } = require('../models/User');
 
 module.exports = new EntitySchema({
-  name: "User",
+  name: 'User',
   target: User,
   columns: {
     id: {
       primary: true,
-      type: "bigint",
-      generated: "true",
+      type: 'bigint',
+      generated: 'true',
     },
     email: {
-      type: "varchar",
+      type: 'varchar',
       unique: true,
     },
     password: {
-      type: "text",
+      type: 'text',
     },
     admin: {
-      type: "smallint",
+      type: 'smallint',
       nullable: true,
     },
     firstName: {
-      type: "varchar",
+      type: 'varchar',
       nullable: true,
     },
     lastName: {
-      type: "varchar",
+      type: 'varchar',
       nullable: true,
     },
     phoneNumber: {
-      type: "varchar",
+      type: 'varchar',
       nullable: true,
     },
     companyName: {
-      type: "varchar",
+      type: 'varchar',
       nullable: true,
     },
     birthMonth: {
-      type: "varchar",
+      type: 'varchar',
       nullable: true,
     },
     adressLine1: {
-      type: "text",
+      type: 'text',
       nullable: true,
     },
     adressLine2: {
-      type: "text",
+      type: 'text',
       nullable: true,
     },
     city: {
-      type: "varchar",
+      type: 'varchar',
       nullable: true,
     },
     state: {
-      type: "varchar",
+      type: 'varchar',
       nullable: true,
     },
     zip: {
-      type: "varchar",
+      type: 'varchar',
       nullable: true,
     },
     country: {
-      type: "varchar",
+      type: 'varchar',
       nullable: true,
     },
   },

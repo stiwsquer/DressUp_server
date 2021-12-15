@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
 const {
   getAllUsersDAO,
   getUserByEmailDAO,
@@ -6,11 +6,8 @@ const {
   saveUserDAO,
   removeUserDAO,
   removeUserByIdDAO,
-  removeUserByEmailDAO,
-  getUserByPlainObjectDAO,
-} = require("../dao/userDao");
-const jwt = require("jsonwebtoken");
-const User = require("../models/User").User;
+} = require('../dao/userDao');
+const User = require('../models/User').User;
 
 async function getAllUsers() {
   try {
@@ -39,95 +36,11 @@ async function getUserByEmail(email) {
   }
 }
 
-async function getUserByPlainObject(plainObject) {
+async function saveUser(data) {
   try {
-    return await getUserByPlainObjectDAO(plainObject);
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-async function saveUser(
-  email,
-  password,
-  firstName,
-  lastName,
-  phoneNumber,
-  companyName,
-  birthMonth,
-  adressLine1,
-  adressLine2,
-  city,
-  state,
-  zip,
-  country
-) {
-  try {
-    const newUser = new User();
-    newUser.email = email;
-    newUser.password = await bcrypt.hash(password, 10);
-    newUser.admin = 0;
-    newUser.firstName = firstName;
-    newUser.lastName = lastName;
-    newUser.companyName = companyName;
-    newUser.phoneNumber = phoneNumber;
-    newUser.birthMonth = birthMonth;
-    newUser.adressLine1 = adressLine1;
-    newUser.adressLine2 = adressLine2;
-    newUser.city = city;
-    newUser.state = state;
-    newUser.zip = zip;
-    newUser.country = country;
+    const newUser = new User(data);
+    newUser.password = await bcrypt.hash(data.password, 10);
     return await saveUserDAO(newUser);
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-async function updateUser(
-  email,
-  id,
-  password,
-  firstName,
-  lastName,
-  phoneNumber,
-  companyName,
-  birthMonth,
-  adressLine1,
-  adressLine2,
-  city,
-  state,
-  zip,
-  country
-) {
-  try {
-    const userToUpdate = id
-      ? await getUserByIdDAO(id)
-      : await getUserByEmailDAO(email);
-    userToUpdate.password = password
-      ? await bcrypt.hash(password, 10)
-      : userToUpdate.password;
-    userToUpdate.firstName = firstName ? firstName : userToUpdate.firstName;
-    userToUpdate.lastName = lastName ? lastName : userToUpdate.lastName;
-    userToUpdate.companyName = companyName
-      ? companyName
-      : userToUpdate.companyName;
-    userToUpdate.phoneNumber = phoneNumber
-      ? phoneNumber
-      : userToUpdate.phoneNumber;
-    userToUpdate.birthMonth = birthMonth ? birthMonth : userToUpdate.birthMonth;
-    userToUpdate.adressLine1 = adressLine1
-      ? adressLine1
-      : userToUpdate.adressLine1;
-    userToUpdate.adressLine2 = adressLine2
-      ? adressLine2
-      : userToUpdate.adressLine2;
-    userToUpdate.city = city ? city : userToUpdate.city;
-    userToUpdate.state = state ? state : userToUpdate.state;
-    userToUpdate.zip = zip ? zip : userToUpdate.zip;
-    userToUpdate.country = country ? country : userToUpdate.country;
-    const response = await saveUserDAO(userToUpdate);
-    return response;
   } catch (err) {
     console.log(err);
   }
@@ -150,14 +63,6 @@ async function removeUserById(id) {
   }
 }
 
-async function removeUserByEmail(email) {
-  try {
-    return await removeUserByEmailDAO(email);
-  } catch (err) {
-    console.log(err);
-  }
-}
-
 function generateAccessToken(user) {
   return user.generateAccessToken();
 }
@@ -171,11 +76,8 @@ module.exports = {
   getUserByEmail,
   getUserById,
   saveUser,
-  updateUser,
   removeUser,
   removeUserById,
-  removeUserByEmail,
   generateAccessToken,
   generateRefreshToken,
-  getUserByPlainObject,
 };

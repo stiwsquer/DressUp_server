@@ -1,25 +1,25 @@
-const EntitySchema = require("typeorm").EntitySchema;
-const Category = require("../models/Category").Category;
+const { EntitySchema } = require('typeorm');
+const { Category } = require('../models/Category');
 
 module.exports = new EntitySchema({
-  name: "Category",
+  name: 'Category',
   target: Category,
   columns: {
     id: {
       primary: true,
-      type: "bigint",
-      generated: "true",
+      type: 'bigint',
+      generated: 'true',
     },
     title: {
-      type: "varchar",
+      type: 'varchar',
     },
   },
   relations: {
     categories: {
-      type: "many-to-many",
-      target: "Product",
+      type: 'many-to-many',
+      target: 'Product',
       joinTable: {
-        name: "category_product",
+        name: 'category_product',
       },
     },
   },
