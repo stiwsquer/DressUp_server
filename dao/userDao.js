@@ -1,5 +1,5 @@
-const User = require("../models/User").User;
-const getConnection = require("typeorm").getConnection;
+const { getConnection } = require('typeorm');
+const { User } = require('../models/User');
 
 function getAllUsersDAO() {
   const connection = getConnection();
@@ -16,13 +16,7 @@ function getUserByIdDAO(id) {
 function getUserByEmailDAO(email) {
   const connection = getConnection();
   const userRepository = connection.getRepository(User);
-  return userRepository.findOne({ email: email });
-}
-
-function getUserByPlainObjectDAO(plainObject) {
-  const connection = getConnection();
-  const userRepository = connection.getRepository(User);
-  return userRepository.find(plainObject);
+  return userRepository.findOne({ email });
 }
 
 function saveUserDAO(user) {
@@ -45,17 +39,7 @@ async function removeUserByIdDAO(id) {
     return userRepository.remove(userToRemove);
   } catch (err) {
     console.log(err);
-  }
-}
-
-async function removeUserByEmailDAO(email) {
-  try {
-    const connection = getConnection();
-    const userRepository = connection.getRepository(User);
-    const userToRemove = await userRepository.findOne({ email: email });
-    return userRepository.remove(userToRemove);
-  } catch (err) {
-    console.log(err);
+    return null;
   }
 }
 
@@ -66,6 +50,4 @@ module.exports = {
   saveUserDAO,
   removeUserDAO,
   removeUserByIdDAO,
-  removeUserByEmailDAO,
-  getUserByPlainObjectDAO,
 };

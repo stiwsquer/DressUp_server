@@ -1,31 +1,31 @@
-const EntitySchema = require("typeorm").EntitySchema;
-const OrderItem = require("../models/OrderItem").OrderItem;
+const { EntitySchema } = require('typeorm');
+const { OrderItem } = require('../models/OrderItem');
 
 module.exports = new EntitySchema({
-  name: "OrderItem",
+  name: 'OrderItem',
   target: OrderItem,
   columns: {
     id: {
       primary: true,
-      type: "bigint",
-      generated: "true",
+      type: 'bigint',
+      generated: 'true',
     },
     quantity: {
-      type: "smallint",
+      type: 'smallint',
     },
   },
   relations: {
     product: {
-      type: "many-to-one",
-      target: "Product",
+      type: 'many-to-one',
+      target: 'Product',
       joinColumn: true,
-      onDelete: "CASCADE",
+      onDelete: 'CASCADE',
     },
     order: {
-      type: "many-to-one",
-      target: "Order",
+      type: 'many-to-one',
+      target: 'Order',
       joinColumn: true,
-      onDelete: "CASCADE",
+      onDelete: 'CASCADE',
     },
   },
 });

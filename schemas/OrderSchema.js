@@ -1,28 +1,28 @@
-const EntitySchema = require("typeorm").EntitySchema;
-const Order = require("../models/Order").Order;
+const { EntitySchema } = require('typeorm');
+const { Order } = require('../models/Order');
 
 module.exports = new EntitySchema({
-  name: "Order",
+  name: 'Order',
   target: Order,
   columns: {
     id: {
       primary: true,
-      type: "bigint",
-      generated: "true",
+      type: 'bigint',
+      generated: 'true',
     },
     status: {
-      type: "varchar",
+      type: 'varchar',
     },
     createdAt: {
-      type: "timestamp with local time zone",
+      type: 'timestamp',
     },
   },
   relations: {
     user: {
-      type: "many-to-one",
-      target: "User",
+      type: 'many-to-one',
+      target: 'User',
       joinColumn: true,
-      onDelete: "CASCADE",
+      onDelete: 'CASCADE',
     },
   },
 });
